@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SONA Studies Dashboard</title>
+</head>
+<body>
+    <h1>SONA Studies Dashboard (MKT)</h1>
+    <ul>
+        {% for study in study_data %}
+        <li>{{ study.study_name }} - {{ study.location }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
