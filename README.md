@@ -11,13 +11,12 @@ flask run
 
 Below is a timeline:
 
-11.13 - Received Instructions 
-    Example:
-    api_url = "https://marshall-mkt.sona-systems.com/services/SonaAPI.svc/SonaGetStudyScheduleList"
-    api_key = "38311-Hreg9h7SZdmH"
+11.13 - Received Instructions & Collected initial URL and API key
 
 11.13 - First Commit to showcase MKT stats
 
 11.14 - UI UX design
-    Figma Prototype here 
-    <a href="https://www.figma.com/proto/BKe8LJxBNVQOdujUGLiIEF/MBRL-Dash?node-id=1-12&node-type=canvas&t=bfH8vuREpSD1U9QA-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A12"> link </a>
+    Figma Prototype 
+    <a href="https://www.figma.com/proto/BKe8LJxBNVQOdujUGLiIEF/MBRL-Dash?node-id=1-12&node-type=canvas&t=bfH8vuREpSD1U9QA-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=1%3A12"> here </a>
+
+11.14 - Merge 1st time, some UI elements 
