@@ -6,12 +6,15 @@
 </head>
 <body>
     <h1>SONA Studies Dashboard (MKT)</h1>
-    <p> hello </p>
-    <ul>
-        {% for study in study_data %}
-            <li>{{ study.study_name }} (ID: {{ study.id }}) - Duration: {{ study.duration }} minutes - Participants: {{ study.participated_amount }} -> Total Duration: {{ (study.participated_amount | int) * (study.duration | int) }} minutes</li>
-        {% endfor %}
-    </ul>
-    <h2> the total amount of research hour accumulated: {{total_duration}} </h2>
+    {% for location, data in location_data.items() %}
+        <h2>{{ location.capitalize() }} Studies</h2>
+        <ul>
+            {% for study in data.studies %}
+                <li>{{ study.study_name }} (ID: {{ study.id }}) - Duration: {{ study.duration }} minutes - Participants: {{ study.participated_amount }} -> Total Duration: {{ (study.participated_amount | int) * (study.duration | int) }} minutes</li>
+            {% endfor %}
+        </ul>
+        <h3>Total Research Hours for {{ location.capitalize() }}: {{ data.total_duration }} hours</h3>
+        <br/>
+    {% endfor %}
 </body>
 </html>
