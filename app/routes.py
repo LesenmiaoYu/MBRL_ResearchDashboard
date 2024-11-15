@@ -87,5 +87,7 @@ def parse_statsxml_to_json(xml_data):
         return {"participated_amount": participated}
     return {}
 
+
 if __name__ == '__main__':
     app.run(debug=True)
+

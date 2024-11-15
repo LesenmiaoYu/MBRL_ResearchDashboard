@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Gauge | CSS Animation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="card">
+        <div class="gauge">
+            <div class="progress">
+                <div class="bar"></div>
+                <div class="needle"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to set the progress on the gauge
+        function setProgress(percent) {
+            const bar = document.querySelector('.bar');
+            const needle = document.querySelector('.needle');
+
+            // Ensure the percentage is within bounds (0-100)
+            const boundedPercent = Math.min(Math.max(percent, 0), 100);
+
+            // Calculate the rotation angle based on the percentage
+            const rotation = (boundedPercent / 100 * 180) - 90; // Adjust for gauge to start from -90 degrees
+
+            // Apply the rotation to the bar and needle
+            bar.style.transform = `rotate(${rotation}deg)`;
+            needle.style.transform = `rotate(${rotation}deg)`;
+
+            // Optional: Update the color based on the percent (e.g., red to green)
+            if (boundedPercent < 33) {
+                bar.style.backgroundColor = 'rgb(255, 0, 0)'; // Red for low
+            } else if (boundedPercent < 66) {
+                bar.style.backgroundColor = 'rgb(255, 165, 0)'; // Orange for mid
+            } else {
+                bar.style.backgroundColor = 'rgb(0, 128, 0)'; // Green for high
+            }
+        }
+
+        // Example of setting the progress to 50% initially
+        document.addEventListener('DOMContentLoaded', () => {
+            setProgress(75);
+        });
+    </script>
+</body>
+</html>

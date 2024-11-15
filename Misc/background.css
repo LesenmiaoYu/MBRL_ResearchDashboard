@@ -1,0 +1,21 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('/backgroundImage.png') no-repeat center center/cover; /* Background Image */
+}
+
+.glass-effect {
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);  /* White color with 20% opacity */
+    backdrop-filter: blur(70px);           /* Background blur of 10px */
+    -webkit-backdrop-filter: blur(10px);   /* Webkit for cross-browser support */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #000;
+    padding: 20px;
+    box-sizing: border-box; /* To make sure padding doesn't overflow */
+}
