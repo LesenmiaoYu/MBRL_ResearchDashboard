@@ -1,0 +1,59 @@
+/* styles.css */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('../static/backgroundImage.png') no-repeat center center fixed; /* Adjusts background image */
+    background-size: cover; /* Ensures background covers entire viewport */
+}
+
+.glass-effect {
+    min-height: 100vh; /* Minimum height to cover the full viewport height */
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Organizes children in a column */
+    align-items: center;
+    justify-content: flex-start; /* Starts aligning children from the top */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: white;
+    margin-bottom: 20px;
+    padding-top: 20px; /* Adds padding at the top for the header */
+}
+
+.card-container {
+    width: 100%;
+    max-width: 1200px; /* Maximum width of the card container */
+    display: flex;
+    flex-wrap: wrap; /* Allows cards to wrap onto the next line */
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    flex: 1; /* Allows cards to grow and fill the space */
+    min-width: 280px; /* Minimum width of a card */
+    max-width: 360px; /* Maximum width of a card */
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 10px; /* Adds margin below each card */
+}
+
+.card h2, .card ul, .card h3 {
+    margin: 10px 0;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}

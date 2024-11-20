@@ -2,19 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/styles.css">
     <title>SONA Studies Dashboard</title>
 </head>
 <body>
-    <h1>SONA Studies Dashboard (MKT)</h1>
-    {% for location, data in location_data.items() %}
-        <h2>{{ location.capitalize() }} Studies</h2>
-        <ul>
-            {% for study in data.studies %}
-                <li>{{ study.study_name }} (ID: {{ study.id }}) - Duration: {{ study.duration }} minutes - Participants: {{ study.participated_amount }} -> Total Duration: {{ (study.participated_amount | int) * (study.duration | int) }} minutes</li>
+    <div class="glass-effect">
+        <h1>SONA Studies Dashboard (MKT)</h1>
+        <div class="card-container">
+            {% for location, data in location_data.items() %}
+            <div class="card">
+                <h2>{{ location.capitalize() }} Studies</h2>
+                <ul>
+                    {% for study in data.studies %}
+                    <li>{{ study.study_name }} (ID: {{ study.id }}) - Duration: {{ study.duration }} minutes - Participants: {{ study.participated_amount }} -> Total Duration: {{ (study.participated_amount | int) * (study.duration | int) }} minutes</li>
+                    {% endfor %}
+                </ul>
+                <h3>Total Research Hours for {{ location.capitalize() }}: {{ data.total_duration }} hours</h3>
+            </div>
             {% endfor %}
-        </ul>
-        <h3>Total Research Hours for {{ location.capitalize() }}: {{ data.total_duration }} hours</h3>
-        <br/>
-    {% endfor %}
+        </div>
+    </div>
 </body>
 </html>
