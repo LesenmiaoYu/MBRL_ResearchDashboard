@@ -28,8 +28,6 @@ If you have any questions, please reach out!
 
 ---
 
-### 1. Backend Setup
-
 1. Navigate to the backend directory:
 
    cd backend
