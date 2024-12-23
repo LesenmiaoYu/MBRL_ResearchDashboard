@@ -41,6 +41,87 @@ def get_meta():
         print(f"Error fetching meta info: {e}")
         return jsonify({"error": "An error occurred"}), 500
 
+@app.route('/aggregate-durations', methods=['GET'])
+def aggregate_durations():
+    aggregate_data = {}
+    total_data = {
+        "aggregate_mkt_hours": 0,
+        "aggregate_mor_hours": 0,
+        "aggregate_comp_hours": 0
+    }
 
+    for location, info in API_INFO.items():
+        studies = fetch_studies(info['url'], info['key'])
+        unique_studies = {study['id']: study for study in studies}  # Ensure unique studies
 
+        total_duration = 0
+        for study_id, study in unique_studies.items():
+            stats = fetch_id_stats(study_id, info['url'], info['key'])
+            study.update(stats)
 
+            if 'participated_amount' in study and 'duration' in study:
+                participated = int(study['participated_amount'])
+                duration = int(study['duration'])
+                total_duration += participated * duration / 60  # Convert to hours
+
+        # Store aggregate duration for the location
+        aggregate_data[location] = round(total_duration, 2)
+
+        # Update total duration based on location
+        if location == 'mkt':
+            total_data["aggregate_mkt_hours"] = round(total_duration, 2)
+        elif location == 'mor':
+            total_data["aggregate_mor_hours"] = round(total_duration, 2)
+        elif location == 'comp':
+            total_data["aggregate_comp_hours"] = round(total_duration, 2)
+
+    total_data["timestamp"] = datetime.utcnow().isoformat()  # Add timestamp
+
+    return jsonify(total_data), 200
+
+# Fetch All Studies for a Pool
+def fetch_studies(api_url, api_key):
+    full_url = f"{api_url}/SonaGetStudyScheduleList"
+    params = {
+        "api_key": api_key,
+        "location_id": -2,
+        "start_date": "2024-06-01",
+        "end_date": "2024-12-31",
+        "lab_only": 0
+    }
+    response = requests.get(full_url, params=params)
+    return parse_listxml_to_json(response.text) if response.status_code == 200 else []
+
+# Fetch Detailed Stats for a Study
+def fetch_id_stats(id, api_url, api_key):
+    full_url = f"{api_url}/SonaGetStudyStats"
+    params = {
+        "api_key": api_key,
+        "experiment_id": id
+    }
+    response = requests.get(full_url, params=params)
+    return parse_statsxml_to_json(response.text) if response.status_code == 200 else {}
+
+# Parse Study List XML to JSON
+def parse_listxml_to_json(xml_data):
+    namespace = {'a': 'http://schemas.datacontract.org/2004/07/emsdotnet.sonasystems'}
+    root = ET.fromstring(xml_data)
+    return [
+        {
+            "id": schedule.find('a:experiment_id', namespaces=namespace).text,
+            "study_name": schedule.find('a:study_name', namespaces=namespace).text,
+            "duration": schedule.find('a:duration', namespaces=namespace).text,
+            "participated_amount": schedule.find('a:participated_count', namespaces=namespace).text if schedule.find('a:participated_count', namespaces=namespace) else '0'
+        }
+        for schedule in root.findall('.//a:APIStudySchedule', namespaces=namespace)
+    ]
+
+# Parse Stats XML to JSON
+def parse_statsxml_to_json(xml_data):
+    namespace = {'a': 'http://schemas.datacontract.org/2004/07/emsdotnet.sonasystems'}
+    root = ET.fromstring(xml_data)
+    result = root.find('.//a:Result', namespaces=namespace)
+    if result:
+        participated = result.find('a:participated_count', namespaces=namespace).text
+        return {"participated_amount": participated}
+    return {}
