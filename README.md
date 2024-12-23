@@ -2,6 +2,12 @@
 ## Overview
 The Research Dashboard is a web-based platform designed to streamline and centralize the management and analysis of studies across multiple research pools (mkt, mor, and comp). It provides real-time insights, dynamic data fetching, and historical progress tracking.
 
+#### Files referenced: 
+
+Figma file: https://www.figma.com/design/BKe8LJxBNVQOdujUGLiIEF/MBRL-Dash?node-id=0-1&t=RI5nj6Pi4pLH5Ksd-1
+
+SONA Api Doc: https://www.sona-systems.com/support/docs/sona_api_docs.pdf
+
 ## Core Features
 - Dynamic Data Fetching: Fetch live study data directly from APIs without redundant database storage.
 - Participation Insights: Display aggregated participation metrics and durations for all studies.
