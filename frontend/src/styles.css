@@ -3,7 +3,7 @@ html, body {
     height: 100%;
     margin: 0;
     font-family: Arial, sans-serif;
-    background: url('../static/backgroundImage.png') no-repeat center center fixed; /* Adjusts background image */
+    background: url('../public/backgroundImage.png') no-repeat center center fixed; /* Adjusts background image */
     background-size: cover; /* Ensures background covers entire viewport */
 }
 
