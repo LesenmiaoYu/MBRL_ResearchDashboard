@@ -1,59 +1,45 @@
 /* styles.css */
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: url('../public/backgroundImage.png') no-repeat center center fixed; /* Adjusts background image */
-    background-size: cover; /* Ensures background covers entire viewport */
-}
 
-.glass-effect {
-    min-height: 100vh; /* Minimum height to cover the full viewport height */
-    width: 100%;
-    display: flex;
-    flex-direction: column; /* Organizes children in a column */
-    align-items: center;
-    justify-content: flex-start; /* Starts aligning children from the top */
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-h1 {
-    color: white;
-    margin-bottom: 20px;
-    padding-top: 20px; /* Adds padding at the top for the header */
-}
-
+/* General container for cards */
 .card-container {
-    width: 100%;
-    max-width: 1200px; /* Maximum width of the card container */
     display: flex;
-    flex-wrap: wrap; /* Allows cards to wrap onto the next line */
-    justify-content: center;
-    gap: 20px;
+    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+    gap: 20px; /* Space between cards */
+    justify-content: center; /* Center cards horizontally */
+    padding: 20px;
+    margin: 0 auto;
 }
 
+/* Style for individual cards */
 .card {
-    flex: 1; /* Allows cards to grow and fill the space */
-    min-width: 280px; /* Minimum width of a card */
-    max-width: 360px; /* Maximum width of a card */
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.8); /* Light background for cards */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    padding: 20px;
+    text-align: left; /* Align text to the left */
+    width: 300px;
+    max-width: 90%;
+}
+
+/* Style for table cards */
+.table-card {
+    background: rgba(255, 255, 255, 0.9); /* Slightly opaque white */
     border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    margin-bottom: 10px; /* Adds margin below each card */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 1000px;
+    overflow-x: auto; /* Allow horizontal scrolling for smaller screens */
 }
 
-.card h2, .card ul, .card h3 {
-    margin: 10px 0;
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
 }

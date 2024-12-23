@@ -1,0 +1,25 @@
+/* background.css */
+
+/* Global styles for the entire page */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('../../public/backgroundImage.png') no-repeat center center/cover;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Glass effect for background sections */
+.glass-effect {
+    min-height: 100vh; /* Full viewport height */
+    width: 100vw; /* Full viewport width */
+    background: rgba(255, 255, 255, 0.1); /* Slightly translucent white background */
+    backdrop-filter: blur(10px); /* Frosted glass blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Webkit compatibility */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center; /* Center text inside */
+    padding: 20px;
+    box-sizing: border-box; /* Ensure padding doesn't affect dimensions */
+}

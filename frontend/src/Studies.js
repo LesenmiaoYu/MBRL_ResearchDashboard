@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Loader from "./components/Loader";
+import './styles.css';
+
 
 function Studies() {
     const [currentStudies, setCurrentStudies] = useState({});
@@ -148,58 +150,59 @@ function Studies() {
         );
     }
 
-    return (
+ return (
         <div>
-            <h1>Studies Dashboard</h1>
 
-            {/* Meta Information */}
-            <section>
-                <h2>Meta Information</h2>
-                <p>Goal MKT: {metaData.goal_mkt}</p>
-                <p>Goal MOR: {metaData.goal_mor}</p>
-                <p>Goal COMP: {metaData.goal_comp}</p>
-            </section>
+            <div className="card-container">
 
-            {/* Current Studies */}
-            <section>
-                <h2>Current Studies</h2>
-                {Object.keys(currentStudies).map((pool) => (
-                    <div key={pool}>
-                        <h3>{pool.toUpperCase()} Studies</h3>
-                        {currentStudies[pool].map((study, index) => (
-                            <div key={index}>
-                                <h4>{study.study_name} ({study.location})</h4>
-                                <p>Duration: {study.duration} minutes & Participated Amount: {study.participated_amount}</p>
-                            </div>
-                        ))}
-                    </div>
-                ))}
-            </section>
+                {/*META INFO*/}
 
-            {/* Past Progress Visualization */}
-            <section>
-                <h2>Past Progress</h2>
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th>Timestamp</th>
-                            <th>Aggregate MKT Hours</th>
-                            <th>Aggregate MOR Hours</th>
-                            <th>Aggregate COMP Hours</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {pastProgress.map((entry, index) => (
-                            <tr key={index}>
-                                <td>{new Date(entry.timestamp).toLocaleString()}</td>
-                                <td>{entry.aggregate_mkt_hours.toFixed(2)}</td>
-                                <td>{entry.aggregate_mor_hours.toFixed(2)}</td>
-                                <td>{entry.aggregate_comp_hours.toFixed(2)}</td>
+                {/*<div className="card">*/}
+                {/*    <h2>Meta Information</h2>*/}
+                {/*    <p>Goal MKT: {metaData.goal_mkt}</p>*/}
+                {/*    <p>Goal MOR: {metaData.goal_mor}</p>*/}
+                {/*    <p>Goal COMP: {metaData.goal_comp}</p>*/}
+                {/*</div>*/}
+
+                {/*EACH OF THREE POOLS*/}
+
+                {/*{Object.keys(currentStudies).map((pool) => (*/}
+                {/*    <div key={pool} className="card">*/}
+                {/*        <h3>{pool.toUpperCase()} Studies</h3>*/}
+                {/*        {currentStudies[pool].map((study, index) => (*/}
+                {/*            <div key={index}>*/}
+                {/*                <h4>{study.study_name} ({study.location})</h4>*/}
+                {/*                <p>Duration: {study.duration} minutes</p>*/}
+                {/*                <p>Participated Amount: {study.participated_amount}</p>*/}
+                {/*            </div>*/}
+                {/*        ))}*/}
+                {/*    </div>*/}
+                {/*))}*/}
+
+                <div className="table-card">
+                    <h2>Past Progress</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Aggregate MKT Hours</th>
+                                <th>Aggregate MOR Hours</th>
+                                <th>Aggregate COMP Hours</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </section>
+                        </thead>
+                        <tbody>
+                            {pastProgress.map((entry, index) => (
+                                <tr key={index}>
+                                    <td>{new Date(entry.timestamp).toLocaleString()}</td>
+                                    <td>{entry.aggregate_mkt_hours.toFixed(2)}</td>
+                                    <td>{entry.aggregate_mor_hours.toFixed(2)}</td>
+                                    <td>{entry.aggregate_comp_hours.toFixed(2)}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 }
