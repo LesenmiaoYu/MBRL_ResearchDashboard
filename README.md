@@ -42,13 +42,13 @@ Stores global system configurations.
 
 **`MetaInfo` Table**
 
-| **Column**  | **Type**  | **Description**                     |
-|-------------|-----------|-------------------------------------|
-| `goal_mkt`  | Integer   | Participation goal for `mkt`.      |
-| `goal_mor`  | Integer   | Participation goal for `mor`.      |
-| `goal_comp` | Integer   | Participation goal for `comp`.     |
-| `admin_id`  | String    | Admin identifier.                  |
-| `admin_key` | String    | Admin key for API access.          |
+| **Column**  | **Type**  | **Description**       |
+|-------------|-----------|-----------------------|
+| `goal_mkt`  | Integer   | Participation goal for `mkt`. |
+| `goal_mor`  | Integer   | Participation goal for `mor`. |
+| `goal_comp` | Integer   | Participation goal for `comp`. |
+| `admin_id`  | String    | Admin identifier.     |
+| `admin_key` | String    | Admin key for access. |
 
 
 ### 2. PastProgress Table
