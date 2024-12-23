@@ -9,41 +9,85 @@ function Studies() {
 
     useEffect(() => {
         // Call each API endpoint separately
+        fetchPastProgress();
+        fetchCurrentStudies();
         fetchMetaData();
     }, []);
 
-    // Fetch Meta Data
-const fetchMetaData = () => {
-    fetch("http://127.0.0.1:5000/get-meta", {
+        const fetchCurrentStudies = () => {
+        fetch("http://127.0.0.1:5000/fetch-live-studies", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch studies: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log("Fetched Current Studies:", data);
+                setCurrentStudies(data); // Update state with live studies data
+            })
+            .catch((error) => {
+                console.error("Error fetching live studies:", error);
+            });
+    };
+
+    const fetchPastProgress = () => {
+    fetch("http://127.0.0.1:5000/get-past-progress", {
         method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
     })
         .then((response) => {
             if (!response.ok) {
-                throw new Error(`Meta Data fetch failed: ${response.status}`);
+                throw new Error(`Failed to fetch past progress: ${response.status}`);
             }
-            console.log(response)
-            return response.json(); // Directly parse JSON if API is expected to return valid JSON
+            return response.json();
         })
-        .then((result) => {
-            console.log("Fetched Meta Data:", result);
-
-            // Validate and map the data
-            const data = {
-                admin_id: result.admin_id || "N/A",
-                admin_key: result.admin_key || "N/A",
-                goal_mkt: result.goal_mkt || "Unknown",
-                goal_mor: result.goal_mor || "Unknown",
-                goal_comp: result.goal_comp || "Unknown"
-            };
-
-            console.log("Parsed Meta Data:", data);
-            setMetaData(data);
-
+        .then((data) => {
+            //console.log("Fetched Past Progress:", data);
+            setPastProgress(data); // Assuming you have a state variable `pastProgress`
         })
-        .catch((error) => {
-            console.error("Error fetching Meta Data:", error);
-        });
-};
+        .catch((error) => console.error("Error fetching past progress:", error));
+    };
+
+    // Fetch Meta Data
+    const fetchMetaData = () => {
+        fetch("http://127.0.0.1:5000/get-meta", {
+            method: "GET",
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`Meta Data fetch failed: ${response.status}`);
+                }
+                //console.log(response)
+                return response.json(); // Directly parse JSON if API is expected to return valid JSON
+            })
+            .then((result) => {
+                //console.log("Fetched Meta Data:", result);
+
+                // Validate and map the data
+                const data = {
+                    admin_id: result.admin_id || "N/A",
+                    admin_key: result.admin_key || "N/A",
+                    goal_mkt: result.goal_mkt || "Unknown",
+                    goal_mor: result.goal_mor || "Unknown",
+                    goal_comp: result.goal_comp || "Unknown"
+                };
+
+                //console.log("Parsed Meta Data:", data);
+                setMetaData(data);
+
+            })
+            .catch((error) => {
+                console.error("Error fetching Meta Data:", error);
+            });
+    };
 
 
 
@@ -67,10 +111,8 @@ const fetchMetaData = () => {
                         <h3>{pool.toUpperCase()} Studies</h3>
                         {currentStudies[pool].map((study, index) => (
                             <div key={index}>
-                                <h4>{study.study_name}</h4>
-                                <p>Location: {study.location}</p>
-                                <p>Duration: {study.duration} minutes</p>
-                                <p>Participated Amount: {study.participated_amount}</p>
+                                <h4>{study.study_name} ({study.location})</h4>
+                                <p>Duration: {study.duration} minutes & Participated Amount: {study.participated_amount}</p>
                             </div>
                         ))}
                     </div>

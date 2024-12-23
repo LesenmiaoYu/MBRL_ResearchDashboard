@@ -1,10 +1,11 @@
 from flask import jsonify
-from app import app
+from app import app, db
 from flask import jsonify
-from models import MetaInfo
+from models import MetaInfo, PastProgress
 import requests
 import xml.etree.ElementTree as ET
-from datetime import datetime
+from datetime import datetime, timedelta
+from pytz import timezone
 
 # API pool information
 API_INFO = {
@@ -43,8 +44,7 @@ def get_meta():
 
 @app.route('/aggregate-durations', methods=['GET'])
 def aggregate_durations():
-    aggregate_data = {}
-    total_data = {
+    aggregate_data = {
         "aggregate_mkt_hours": 0,
         "aggregate_mor_hours": 0,
         "aggregate_comp_hours": 0
@@ -64,20 +64,31 @@ def aggregate_durations():
                 duration = int(study['duration'])
                 total_duration += participated * duration / 60  # Convert to hours
 
-        # Store aggregate duration for the location
-        aggregate_data[location] = round(total_duration, 2)
-
-        # Update total duration based on location
         if location == 'mkt':
-            total_data["aggregate_mkt_hours"] = round(total_duration, 2)
+            aggregate_data["aggregate_mkt_hours"] = round(total_duration, 2)
         elif location == 'mor':
-            total_data["aggregate_mor_hours"] = round(total_duration, 2)
+            aggregate_data["aggregate_mor_hours"] = round(total_duration, 2)
         elif location == 'comp':
-            total_data["aggregate_comp_hours"] = round(total_duration, 2)
+            aggregate_data["aggregate_comp_hours"] = round(total_duration, 2)
 
-    total_data["timestamp"] = datetime.utcnow().isoformat()  # Add timestamp
+    # Add timestamp
+    aggregate_data["timestamp"] = datetime.utcnow()
 
-    return jsonify(total_data), 200
+    # Insert into PastProgress table
+    past_progress_entry = PastProgress(
+        timestamp=aggregate_data["timestamp"],
+        aggregate_mkt_hours=aggregate_data["aggregate_mkt_hours"],
+        aggregate_mor_hours=aggregate_data["aggregate_mor_hours"],
+        aggregate_comp_hours=aggregate_data["aggregate_comp_hours"]
+    )
+    db.session.add(past_progress_entry)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Aggregated durations added to past_progress table",
+        "data": aggregate_data
+    }), 200
+
 
 # Fetch All Studies for a Pool
 def fetch_studies(api_url, api_key):
@@ -110,8 +121,8 @@ def parse_listxml_to_json(xml_data):
         {
             "id": schedule.find('a:experiment_id', namespaces=namespace).text,
             "study_name": schedule.find('a:study_name', namespaces=namespace).text,
-            "duration": schedule.find('a:duration', namespaces=namespace).text,
-            "participated_amount": schedule.find('a:participated_count', namespaces=namespace).text if schedule.find('a:participated_count', namespaces=namespace) else '0'
+            "location": schedule.find('a:location', namespaces=namespace).text,
+            "duration": schedule.find('a:duration', namespaces=namespace).text
         }
         for schedule in root.findall('.//a:APIStudySchedule', namespaces=namespace)
     ]
@@ -125,3 +136,58 @@ def parse_statsxml_to_json(xml_data):
         participated = result.find('a:participated_count', namespaces=namespace).text
         return {"participated_amount": participated}
     return {}
+
+@app.route('/get-past-progress', methods=['GET'])
+def get_past_progress():
+    pst = timezone('US/Pacific')
+    entries_by_date = {}
+
+    # Fetch all entries ordered by timestamp descending
+    progress_entries = PastProgress.query.order_by(PastProgress.timestamp.desc()).all()
+
+    for entry in progress_entries:
+        # Convert timestamp to PST
+        pst_timestamp = entry.timestamp.astimezone(pst) - timedelta(hours=8)
+        date_key = pst_timestamp.date()  # Use only the date part for grouping
+
+        # Keep only the first entry for each date (most recent in descending order)
+        if date_key not in entries_by_date:
+            entries_by_date[date_key] = {
+                "timestamp": pst_timestamp.isoformat(),
+                "aggregate_mkt_hours": entry.aggregate_mkt_hours,
+                "aggregate_mor_hours": entry.aggregate_mor_hours,
+                "aggregate_comp_hours": entry.aggregate_comp_hours
+            }
+
+    # Return the filtered results as a list
+    result = list(entries_by_date.values())
+    return jsonify(result), 200
+
+
+@app.route('/fetch-live-studies', methods=['GET'])
+def fetch_live_studies():
+    live_studies = {}
+
+    for pool, api_info in API_INFO.items():
+        studies = fetch_studies(api_info['url'], api_info['key'])  # Fetch basic study info
+        unique_studies = {study["id"]: study for study in studies}  # Ensure unique studies by id
+
+        live_studies[pool] = []
+
+        for study_id, study in unique_studies.items():
+            # Fetch detailed stats for the study
+            stats = fetch_id_stats(study_id, api_info['url'], api_info['key'])
+            participated_amount = int(stats.get("participated_amount", 0))
+
+            # Discard the study if participated_amount is 0
+            if participated_amount > 0:
+                live_studies[pool].append({
+                    "study_name": study["study_name"],
+                    "location": "online" if "online" in study["location"].lower() else "in-person",
+                    "duration": int(study["duration"]),
+                    "participated_amount": participated_amount,
+                })
+
+    return jsonify(live_studies), 200
+
+
