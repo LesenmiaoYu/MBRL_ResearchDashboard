@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Loader from "./components/Loader";
 import './styles.css';
+import StackedGraph from "./components/StackedGraph";
 
 
 function Studies() {
@@ -13,6 +14,8 @@ function Studies() {
         pastProgress: true,
         metaData: true,
     });
+
+    const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
 
     const [error, setError] = useState(null);
 
@@ -151,60 +154,68 @@ function Studies() {
     }
 
  return (
-        <div>
+     <div className="card-container">
+         <div className="card" onClick={() => setIsModalOpen(true)}>
+             <StackedGraph/>
+         </div>
+         {/*META INFO*/}
 
-            <div className="card-container">
+         {/*<div className="card">*/}
+         {/*    <h2>Meta Information</h2>*/}
+         {/*    <p>Goal MKT: {metaData.goal_mkt}</p>*/}
+         {/*    <p>Goal MOR: {metaData.goal_mor}</p>*/}
+         {/*    <p>Goal COMP: {metaData.goal_comp}</p>*/}
+         {/*</div>*/}
 
-                {/*META INFO*/}
+         {/*EACH OF THREE POOLS*/}
 
-                {/*<div className="card">*/}
-                {/*    <h2>Meta Information</h2>*/}
-                {/*    <p>Goal MKT: {metaData.goal_mkt}</p>*/}
-                {/*    <p>Goal MOR: {metaData.goal_mor}</p>*/}
-                {/*    <p>Goal COMP: {metaData.goal_comp}</p>*/}
-                {/*</div>*/}
+         {/*{Object.keys(currentStudies).map((pool) => (*/}
+         {/*    <div key={pool} className="card">*/}
+         {/*        <h3>{pool.toUpperCase()} Studies</h3>*/}
+         {/*        {currentStudies[pool].map((study, index) => (*/}
+         {/*            <div key={index}>*/}
+         {/*                <h4>{study.study_name} ({study.location})</h4>*/}
+         {/*                <p>Duration: {study.duration} minutes</p>*/}
+         {/*                <p>Participated Amount: {study.participated_amount}</p>*/}
+         {/*            </div>*/}
+         {/*        ))}*/}
+         {/*    </div>*/}
+         {/*))}*/}
 
-                {/*EACH OF THREE POOLS*/}
-
-                {/*{Object.keys(currentStudies).map((pool) => (*/}
-                {/*    <div key={pool} className="card">*/}
-                {/*        <h3>{pool.toUpperCase()} Studies</h3>*/}
-                {/*        {currentStudies[pool].map((study, index) => (*/}
-                {/*            <div key={index}>*/}
-                {/*                <h4>{study.study_name} ({study.location})</h4>*/}
-                {/*                <p>Duration: {study.duration} minutes</p>*/}
-                {/*                <p>Participated Amount: {study.participated_amount}</p>*/}
-                {/*            </div>*/}
-                {/*        ))}*/}
-                {/*    </div>*/}
-                {/*))}*/}
-
-                <div className="table-card">
-                    <h2>Past Progress</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Timestamp</th>
-                                <th>Aggregate MKT Hours</th>
-                                <th>Aggregate MOR Hours</th>
-                                <th>Aggregate COMP Hours</th>
+    {isModalOpen && (
+        <div className="modal">
+            <div className="modal-content">
+                <button className="close-button" onClick={() => setIsModalOpen(false)}>
+                    ×
+                </button>
+                <h2>Past Progress</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Aggregate MKT Hours</th>
+                            <th>Aggregate MOR Hours</th>
+                            <th>Aggregate COMP Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {pastProgress.map((entry, index) => (
+                            <tr key={index}>
+                                <td>{new Date(entry.timestamp).toLocaleString()}</td>
+                                <td>{entry.aggregate_mkt_hours.toFixed(2)}</td>
+                                <td>{entry.aggregate_mor_hours.toFixed(2)}</td>
+                                <td>{entry.aggregate_comp_hours.toFixed(2)}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {pastProgress.map((entry, index) => (
-                                <tr key={index}>
-                                    <td>{new Date(entry.timestamp).toLocaleString()}</td>
-                                    <td>{entry.aggregate_mkt_hours.toFixed(2)}</td>
-                                    <td>{entry.aggregate_mor_hours.toFixed(2)}</td>
-                                    <td>{entry.aggregate_comp_hours.toFixed(2)}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                        ))}
+                    </tbody>
+                </table>
             </div>
         </div>
-    );
+    )}
+
+     </div>
+
+ );
 }
 
 export default Studies;
