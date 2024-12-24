@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Loader from "./components/Loader";
 import './styles.css';
 import StackedGraph from "./components/StackedGraph";
+import ProgressBar from "./components/ProgressBar";
 
 
 function Studies() {
@@ -157,7 +158,15 @@ function Studies() {
      <div className="card-container">
          <div className="card" onClick={() => setIsModalOpen(true)}>
              <StackedGraph/>
+
+
          </div>
+
+         <div style={{width: "100%", height: "auto", padding: "10px"}}>
+             <ProgressBar goal={100} actual={75}/>
+         </div>
+
+
          {/*META INFO*/}
 
          {/*<div className="card">*/}
@@ -182,36 +191,36 @@ function Studies() {
          {/*    </div>*/}
          {/*))}*/}
 
-    {isModalOpen && (
-        <div className="modal">
-            <div className="modal-content">
-                <button className="close-button" onClick={() => setIsModalOpen(false)}>
-                    ×
-                </button>
-                <h2>Past Progress</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Timestamp</th>
-                            <th>Aggregate MKT Hours</th>
-                            <th>Aggregate MOR Hours</th>
-                            <th>Aggregate COMP Hours</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {pastProgress.map((entry, index) => (
-                            <tr key={index}>
-                                <td>{new Date(entry.timestamp).toLocaleString()}</td>
-                                <td>{entry.aggregate_mkt_hours.toFixed(2)}</td>
-                                <td>{entry.aggregate_mor_hours.toFixed(2)}</td>
-                                <td>{entry.aggregate_comp_hours.toFixed(2)}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    )}
+         {isModalOpen && (
+             <div className="modal">
+                 <div className="modal-content">
+                     <button className="close-button" onClick={() => setIsModalOpen(false)}>
+                         ×
+                     </button>
+                     <h2>Past Progress</h2>
+                     <table>
+                         <thead>
+                         <tr>
+                             <th>Timestamp</th>
+                             <th>Aggregate MKT Hours</th>
+                             <th>Aggregate MOR Hours</th>
+                             <th>Aggregate COMP Hours</th>
+                         </tr>
+                         </thead>
+                         <tbody>
+                         {pastProgress.map((entry, index) => (
+                             <tr key={index}>
+                                 <td>{new Date(entry.timestamp).toLocaleString()}</td>
+                                 <td>{entry.aggregate_mkt_hours.toFixed(2)}</td>
+                                 <td>{entry.aggregate_mor_hours.toFixed(2)}</td>
+                                 <td>{entry.aggregate_comp_hours.toFixed(2)}</td>
+                             </tr>
+                         ))}
+                         </tbody>
+                     </table>
+                 </div>
+             </div>
+         )}
 
      </div>
 

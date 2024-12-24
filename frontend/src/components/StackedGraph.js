@@ -40,58 +40,61 @@ export default function StackedGraph() {
     if (error) return <p>Error: {error}</p>;
 
     return (
-        <LineChart
-            dataset={dataset}
-            xAxis={[
-                {
-                    id: "Months",
-                    dataKey: "date",
-                    scaleType: "time",
-                    valueFormatter: (date) => {
-                        const month = (date.getMonth() + 1).toString().padStart(2, "0");
-                        const day = date.getDate().toString().padStart(2, "0");
-                        return `${month}/${day}`;
+        <div>
+            <h3 style={{textAlign: "center"}}>Total Research Hours Over Time</h3>
+            <LineChart
+                dataset={dataset}
+                xAxis={[
+                    {
+                        id: "Months",
+                        dataKey: "date",
+                        scaleType: "time",
+                        valueFormatter: (date) => {
+                            const month = (date.getMonth() + 1).toString().padStart(2, "0");
+                            const day = date.getDate().toString().padStart(2, "0");
+                            return `${month}/${day}`;
+                        },
                     },
-                },
-            ]}
-            series={[
-                {
-                    id: "MKT",
-                    label: "MKT Pool",
-                    dataKey: "mkt",
-                    stack: "total",
-                    area: true,
-                    showMark: true,
-                    color: "#92C5F9",
-                },
-                {
-                    id: "MOR",
-                    label: "MOR Pool",
-                    dataKey: "mor",
-                    stack: "total",
-                    area: true,
-                    showMark: true,
-                    color: "#AFDC8F",
-                },
-                {
-                    id: "COMP",
-                    label: "COMP Pool",
-                    dataKey: "comp",
-                    stack: "total",
-                    area: true,
-                    showMark: true,
-                    color: "#B6A6E9",
-                },
-            ]}
-            tooltip={{
-                valueFormatter: (value, dataKey, datum) => {
-                    const timestamp = datum.date.toLocaleString();
-                    return `Value: ${value} (${timestamp})`;
-                },
-            }}
-            width={600}
-            height={400}
-            margin={{ left: 70 }}
-        />
+                ]}
+                series={[
+                    {
+                        id: "MKT",
+                        label: "MKT Pool",
+                        dataKey: "mkt",
+                        stack: "total",
+                        area: true,
+                        showMark: true,
+                        color: "#92C5F9",
+                    },
+                    {
+                        id: "MOR",
+                        label: "MOR Pool",
+                        dataKey: "mor",
+                        stack: "total",
+                        area: true,
+                        showMark: true,
+                        color: "#AFDC8F",
+                    },
+                    {
+                        id: "COMP",
+                        label: "COMP Pool",
+                        dataKey: "comp",
+                        stack: "total",
+                        area: true,
+                        showMark: true,
+                        color: "#B6A6E9",
+                    },
+                ]}
+                tooltip={{
+                    valueFormatter: (value, dataKey, datum) => {
+                        const timestamp = datum.date.toLocaleString();
+                        return `Value: ${value} (${timestamp})`;
+                    },
+                }}
+                width={600}
+                height={400}
+                margin={{ left: 70 }}
+            />
+        </div>
     );
 }
