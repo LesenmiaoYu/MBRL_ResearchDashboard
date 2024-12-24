@@ -57,7 +57,7 @@ export default function StackedGraph() {
             series={[
                 {
                     id: "MKT",
-                    label: "Marketing Subject Pool",
+                    label: "MKT Pool",
                     dataKey: "mkt",
                     stack: "total",
                     area: true,
@@ -66,7 +66,7 @@ export default function StackedGraph() {
                 },
                 {
                     id: "MOR",
-                    label: "Management Subject Pool",
+                    label: "MOR Pool",
                     dataKey: "mor",
                     stack: "total",
                     area: true,
@@ -75,7 +75,7 @@ export default function StackedGraph() {
                 },
                 {
                     id: "COMP",
-                    label: "Compensated Subject Pool",
+                    label: "COMP Pool",
                     dataKey: "comp",
                     stack: "total",
                     area: true,
