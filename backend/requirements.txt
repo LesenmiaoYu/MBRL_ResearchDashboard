@@ -1,5 +1,6 @@
 Flask
 Flask-SQLAlchemy
+flask_sqlalchemy
 Flask-Cors
 requests
 pytz

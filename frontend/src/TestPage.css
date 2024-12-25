@@ -1,0 +1,91 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #212121; /* Match the dark background */
+    color: #fff; /* White text for visibility */
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevent scrolling */
+}
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+    grid-template-rows: auto; /* Automatically adjust rows */
+    gap: 40px; /* More space between columns */
+    padding: 20px;
+    max-width: 1400px; /* Set max width */
+    height: 100vh; /* Full viewport height */
+    margin: 0 auto; /* Center the dashboard */
+    box-sizing: border-box;
+}
+
+/* Ensure both columns have equal height */
+.first-column, .second-column {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    gap: 20px; /* Space between items */
+    height: 100%; /* Stretch to full container height */
+}
+
+/* Make all cards slightly wider */
+.chart-card, .progress-card, .overview-card, .study-list {
+    width: 95%; /* Adjust card width */
+    margin: 0 auto; /* Center cards within their container */
+    background: #ffffff;
+    border-radius: 15px;
+    color: #333;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    flex: 1; /* Cards stretch evenly within their column */
+    overflow: hidden; /* Prevent content overflow inside the card */
+    display: flex;
+    flex-direction: column; /* Ensure content is stacked */
+    justify-content: center; /* Center content vertically */
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #333;
+    padding: 10px 20px;
+    border-radius: 10px;
+    width: 95%; /* Adjust header width */
+    margin: 0 auto; /* Center header */
+    flex: 0; /* Prevent it from stretching */
+}
+
+/* Progress cards */
+.progress-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1; /* Stretch to use available space */
+}
+
+/* Overview card */
+.overview-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1; /* Stretch to use available space */
+}
+
+/* Study list */
+.study-list {
+    height: auto; /* Automatically adjust height */
+    flex: 1; /* Stretch to use available space */
+    overflow-y: auto; /* Allow vertical scrolling for overflowing content */
+}
+
+/* Ensure full column height evenly distributed */
+.chart-card, .header, .overview-card, .progress-card, .study-list {
+    flex: 1; /* Allow cards to stretch evenly in their column */
+}
+
+/* Add padding inside the list if it overflows */
+.study-list ul {
+    padding-right: 10px;
+}

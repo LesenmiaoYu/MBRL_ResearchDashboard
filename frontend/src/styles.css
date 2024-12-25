@@ -12,6 +12,7 @@
 
 /* Style for individual cards */
 .card {
+    width: 50vw; /* Default width for responsiveness */
     background: #ffffff; /* Pure white background for cards */
     border-radius: 15px; /* Rounded corners */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Subtle drop shadow for texture */

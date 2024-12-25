@@ -162,8 +162,16 @@ function Studies() {
 
          </div>
 
-         <div style={{width: "100%", height: "auto", padding: "10px"}}>
-             <ProgressBar goal={100} actual={75}/>
+         <div className="card">
+             <h4>Progress for MKT:</h4>
+             <ProgressBar goal={metaData.goal_mkt}
+                          actual={pastProgress.reduce((sum, entry) => sum + entry.aggregate_mkt_hours, 0)}/>
+             <h4>Progress for MOR:</h4>
+             <ProgressBar goal={metaData.goal_mor}
+                          actual={pastProgress.reduce((sum, entry) => sum + entry.aggregate_mor_hours, 0)}/>
+             <h4>Progress for COMP:</h4>
+             <ProgressBar goal={metaData.goal_comp}
+                          actual={pastProgress.reduce((sum, entry) => sum + entry.aggregate_comp_hours, 0)}/>
          </div>
 
 

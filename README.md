@@ -73,14 +73,17 @@ Frontend queries /get-past-progress to display historical trends.
 Fetches system-wide configurations via /get-meta.
 ## Setup Guide
 ### Prerequisites
-Install Python 3.7+ and Node.js 16+.
-Ensure pip and npm are installed.
+Install Python 3.7+ and Node.js 16+;
+Ensure pip and npm are installed. (you will have to get homebrew if you are using a mac)
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && then follow the steps
+
 
 1. Navigate to the backend directory:
 
    cd backend
 
-   python -m venv venv
+   python -m venv venv ("source venv/bin/activate" if you are on mac)
 
    venv\Scripts\activate (this puts everything into a virtual environment so you won't have to worry about it messing anything up)
    
@@ -88,7 +91,7 @@ Ensure pip and npm are installed.
 
    python build_db.py
 
-   flask run
+   flask run ("python -m flask run" if you are on mac)
 
 2. Navigate to the frontend directory:
    
