@@ -9,9 +9,8 @@ import '../src/components/Background.css';
 function App() {
     return (
         <Background>
-            <TestPage/>
-            {//<Studies />
-                 }
+            {/*<TestPage/>*/}
+            <Studies />
         </Background>
     );
 }

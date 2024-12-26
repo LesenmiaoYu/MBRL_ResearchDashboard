@@ -8,15 +8,19 @@ function TestPage() {
       <div className="first-column">
         {/* Header */}
         <div className="header">
-          <div>SPRING 2025</div>
-          <div>Last updated: 3:47 PM</div>
+          <div className="header-card">
+            <div>SPRING 2025</div>
+          </div>
+          <div className="header-card">
+            <div>Last updated: 3:47 PM</div>
+          </div>
         </div>
 
         {/* Chart */}
         <div className="chart-card">
           <h3>RESEARCH HOURS OVER TIME</h3>
-          <div style={{ height: "250px", background: "#ddd", borderRadius: "10px" }}>
-            <p style={{ textAlign: "center", lineHeight: "250px", color: "#999" }}>
+          <div style={{height: "250px", background: "#ddd", borderRadius: "10px"}}>
+            <p style={{textAlign: "center", lineHeight: "250px", color: "#999"}}>
               Chart Placeholder
             </p>
           </div>

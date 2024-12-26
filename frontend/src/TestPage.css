@@ -1,91 +1,77 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #212121; /* Match the dark background */
-    color: #fff; /* White text for visibility */
-    height: 100vh; /* Full viewport height */
-    overflow: hidden; /* Prevent scrolling */
-}
-
 .dashboard-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two equal-width columns */
-    grid-template-rows: auto; /* Automatically adjust rows */
-    gap: 40px; /* More space between columns */
-    padding: 20px;
-    max-width: 1400px; /* Set max width */
-    height: 100vh; /* Full viewport height */
-    margin: 0 auto; /* Center the dashboard */
-    box-sizing: border-box;
-}
-
-/* Ensure both columns have equal height */
-.first-column, .second-column {
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    gap: 20px; /* Space between items */
-    height: 100%; /* Stretch to full container height */
+    justify-content: space-between;
+    gap: 2vw; /* Space between columns */
+    padding: 0 20px; /* Horizontal padding for the dashboard */
+    align-items: flex-start; /* Align columns at the top */
+    height: 95vh; /* Slightly reduce total height */
+    overflow: hidden; /* Prevent scrollbars */
 }
 
-/* Make all cards slightly wider */
-.chart-card, .progress-card, .overview-card, .study-list {
-    width: 95%; /* Adjust card width */
-    margin: 0 auto; /* Center cards within their container */
-    background: #ffffff;
-    border-radius: 15px;
-    color: #333;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    flex: 1; /* Cards stretch evenly within their column */
-    overflow: hidden; /* Prevent content overflow inside the card */
+.first-column,
+.second-column {
+    width: 40vw; /* Fixed width for columns */
     display: flex;
-    flex-direction: column; /* Ensure content is stacked */
-    justify-content: center; /* Center content vertically */
+    flex-direction: column;
+    gap: 20px; /* Vertical space between cards within the column */
+    padding: 20px; /* Padding inside each column */
+    box-sizing: border-box; /* Ensure padding is included in width calculation */
+    height: 95vh; /* Ensure both columns are the same height */
 }
 
-/* Header */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #333;
-    padding: 10px 20px;
+    gap: 20px; /* Horizontal space between header cards */
+    margin-top: 10px; /* Align with the margin on progress cards */
+}
+
+.header-card {
+    flex: 1; /* Equal width for header cards */
+    background: #fff; /* White background */
     border-radius: 10px;
-    width: 95%; /* Adjust header width */
-    margin: 0 auto; /* Center header */
-    flex: 0; /* Prevent it from stretching */
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-/* Progress cards */
-.progress-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex: 1; /* Stretch to use available space */
-}
-
-/* Overview card */
-.overview-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex: 1; /* Stretch to use available space */
-}
-
-/* Study list */
+.chart-card,
+.overview-card,
+.progress-card,
 .study-list {
-    height: auto; /* Automatically adjust height */
-    flex: 1; /* Stretch to use available space */
-    overflow-y: auto; /* Allow vertical scrolling for overflowing content */
+    background: #fff; /* White background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px 0; /* Adds vertical margin between cards */
+    padding: 20px; /* Ensures consistent padding within each card */
 }
 
-/* Ensure full column height evenly distributed */
-.chart-card, .header, .overview-card, .progress-card, .study-list {
-    flex: 1; /* Allow cards to stretch evenly in their column */
+.progress-card {
+    height: 70px; /* Reduced height for progress cards */
+    margin-top: 10px; /* Ensure consistent margin above the progress card */
 }
 
-/* Add padding inside the list if it overflows */
-.study-list ul {
-    padding-right: 10px;
+.study-list {
+    flex-grow: 1; /* Take up remaining height in the column */
+    max-height: 250px; /* Further reduce height for the study list */
+    background: #fff; /* White background */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Prevent scrolling */
+}
+
+@media (max-width: 1024px) {
+    .dashboard-container {
+        flex-direction: column; /* Stack columns vertically on smaller screens */
+        align-items: center;
+    }
+
+    .first-column,
+    .second-column {
+        width: 90vw; /* Use a larger width for smaller screens */
+        padding: 10px; /* Adjust padding for smaller screens */
+        height: auto; /* Let columns grow naturally on smaller screens */
+    }
 }
