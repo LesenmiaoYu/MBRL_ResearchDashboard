@@ -190,4 +190,3 @@ def fetch_live_studies():
 
     return jsonify(live_studies), 200
 
-

@@ -7,7 +7,7 @@ export default function StackedGraph() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch("http://127.0.0.1:5000/get-past-progress", {
+        fetch("http://ec2-54-147-55-180.compute-1.amazonaws.com:5000/get-past-progress", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

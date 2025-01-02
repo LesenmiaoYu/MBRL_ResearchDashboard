@@ -31,7 +31,7 @@ function Studies() {
     }, []);
 
     const callAggregateDurations = () => {
-        fetch("http://127.0.0.1:5000/aggregate-durations", {
+        fetch("http://ec2-54-147-55-180.compute-1.amazonaws.com:5000/aggregate-durations", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -55,7 +55,7 @@ function Studies() {
     };
 
     const fetchCurrentStudies = () => {
-        fetch("http://127.0.0.1:5000/fetch-live-studies", {
+        fetch("http://ec2-54-147-55-180.compute-1.amazonaws.com:5000/fetch-live-studies", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -80,7 +80,7 @@ function Studies() {
     };
 
     const fetchPastProgress = () => {
-        fetch("http://127.0.0.1:5000/get-past-progress", {
+        fetch("http://ec2-54-147-55-180.compute-1.amazonaws.com:5000/get-past-progress", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -106,7 +106,7 @@ function Studies() {
 
     // Fetch Meta Data
     const fetchMetaData = () => {
-        fetch("http://127.0.0.1:5000/get-meta", {
+        fetch("http://ec2-54-147-55-180.compute-1.amazonaws.com:5000/get-meta", {
             method: "GET",
         })
             .then((response) => {
