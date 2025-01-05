@@ -9,7 +9,7 @@ Based on your preference, you may proceed with an IDE of your choice (VSCode || 
 3. Lastly, open up terminal within the IDE & follow the steps down below
    * if you missed anything, this is when you would find out
    * you should be able to find all the resources online on how to download the missing pieces
-4. If you have followed all the right steps, I have configured (by default) that you would be able to visit the page on http://127.0.0.1:5000
+4. If you have followed all the right steps, I have configured (by default) that you would be able to visit the page on http://ec2-54-147-55-180.compute-1.amazonaws.com:5000
 5. When you are done, exit running (in terminal) by inputting control+c
 
 Any changes you make will not be updated, so don't be afraid of breaking it
@@ -42,7 +42,7 @@ If you have any questions, please reach out!
    npm install
    npm start
 
-Flask backend: http://127.0.0.1:5000/
-React frontend: http://127.0.0.1:3000/
+Flask backend: http://ec2-54-147-55-180.compute-1.amazonaws.com:5000/
+React frontend: http://ec2-54-147-55-180.compute-1.amazonaws.com:3000/
 
 

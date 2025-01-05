@@ -29,7 +29,7 @@
 }
 
 .header-card {
-    flex: 1;
+    flex-grow: 1;
     background: #fff;
     border-radius: 10px;
     padding: 10px 20px;
@@ -64,6 +64,7 @@
 
 .overview-card {
     height: 20%; /* Proportional height for the overview card */
+    flex-grow: 1;
     margin: 0;
     display: flex;
     justify-content: space-between;
@@ -189,4 +190,53 @@
         padding: 10px;
         height: auto; /* Allow natural height on smaller screens */
     }
+}
+
+/* Progress Row Card */
+.progress-row-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 10px; /* Space between buttons */
+    width: 100%; /* Match the width of the second column */
+    box-sizing: border-box;
+}
+
+/* Progress Buttons */
+.progress-button {
+    flex: 1; /* Ensure buttons take equal space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progress-button:hover {
+    transform: scale(1.05);
+    background-color: #e9e9e9;
+}
+
+.progress-button h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+.progress-button p {
+    margin: 5px 0 0 0;
+    font-size: 14px;
+    color: #555;
 }

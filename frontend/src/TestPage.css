@@ -54,7 +54,6 @@
 
 .study-list {
     flex-grow: 1; /* Take up remaining height in the column */
-    max-height: 250px; /* Further reduce height for the study list */
     background: #fff; /* White background */
     border-radius: 10px;
     padding: 20px;

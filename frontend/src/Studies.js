@@ -164,12 +164,14 @@ function Studies() {
                 <div className="header">
                     <div className="header-card">
                         <div>SPRING 2025</div>
+                        <div>(click to switch timeframe)</div>
                     </div>
                     <div
                         className="header-card"
                         onClick={() => window.location.reload()}
                     >
-                        <div>Last updated: {new Date().toLocaleString()}</div>
+                        <div>Last updated: </div>
+                        <div>{new Date().toLocaleString()}</div>
                     </div>
 
                 </div>
@@ -262,32 +264,47 @@ function Studies() {
 
 
             </div>
-
             {/* Second Column */}
             <div className="second-column">
+
                 {/* Progress for MKT */}
-                <div className="progress-card" onClick={() => setSelectedPool("mkt")}>
-                    <h3 className="progress-title">Progress for MKT</h3>
-                    <ProgressBar
-                        goal={metaData.goal_mkt}
-                        actual={pastProgress.length > 0 ? pastProgress[pastProgress.length - 1].aggregate_mkt_hours : 0}
-                    />
-                </div>
+                {/*<div className="progress-card" onClick={() => setSelectedPool("mkt")}>*/}
+                {/*    <h3 className="progress-title">Progress for MKT</h3>*/}
+                {/*    <ProgressBar*/}
+                {/*        goal={metaData.goal_mkt}*/}
+                {/*        actual={pastProgress.length > 0 ? pastProgress[pastProgress.length - 1].aggregate_mkt_hours : 0}*/}
+                {/*    />*/}
+                {/*</div>*/}
 
-                <div className="progress-card" onClick={() => setSelectedPool("mor")}>
-                    <h3 className="progress-title">Progress for MOR</h3>
-                    <ProgressBar
-                        goal={metaData.goal_mor}
-                        actual={pastProgress.length > 0 ? pastProgress[pastProgress.length - 1].aggregate_mor_hours : 0}
-                    />
-                </div>
+                {/*<div className="progress-card" onClick={() => setSelectedPool("mor")}>*/}
+                {/*    <h3 className="progress-title">Progress for MOR</h3>*/}
+                {/*    <ProgressBar*/}
+                {/*        goal={metaData.goal_mor}*/}
+                {/*        actual={pastProgress.length > 0 ? pastProgress[pastProgress.length - 1].aggregate_mor_hours : 0}*/}
+                {/*    />*/}
+                {/*</div>*/}
 
-                <div className="progress-card" onClick={() => setSelectedPool("comp")}>
-                    <h3 className="progress-title">Progress for COMP</h3>
-                    <ProgressBar
-                        goal={metaData.goal_comp}
-                        actual={pastProgress.length > 0 ? pastProgress[pastProgress.length - 1].aggregate_comp_hours : 0}
-                    />
+                {/*<div className="progress-card" onClick={() => setSelectedPool("comp")}>*/}
+                {/*    <h3 className="progress-title">Progress for COMP</h3>*/}
+                {/*    <ProgressBar*/}
+                {/*        goal={metaData.goal_comp}*/}
+                {/*        actual={pastProgress.length > 0 ? pastProgress[pastProgress.length - 1].aggregate_comp_hours : 0}*/}
+                {/*    />*/}
+                {/*</div>*/}
+
+                <div className="progress-row-card">
+                    <button className="progress-button" onClick={() => setSelectedPool("mkt")}>
+                        <h3>MKT</h3>
+                        <p>{pastProgress.length > 0 ? pastProgress[pastProgress.length - 1].aggregate_mkt_hours : 0} hours</p>
+                    </button>
+                    <button className="progress-button" onClick={() => setSelectedPool("mor")}>
+                        <h3>MOR</h3>
+                        <p>{pastProgress.length > 0 ? pastProgress[pastProgress.length - 1].aggregate_mor_hours : 0} hours</p>
+                    </button>
+                    <button className="progress-button" onClick={() => setSelectedPool("comp")}>
+                        <h3>COMP</h3>
+                        <p>{pastProgress.length > 0 ? pastProgress[pastProgress.length - 1].aggregate_comp_hours : 0} hours</p>
+                    </button>
                 </div>
 
 
