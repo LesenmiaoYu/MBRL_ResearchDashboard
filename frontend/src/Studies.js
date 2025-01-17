@@ -3,6 +3,7 @@ import Loader from "./components/Loader";
 import './styles.css';
 import StackedGraph from "./components/StackedGraph";
 import ProgressBar from "./components/ProgressBar";
+import jsPDF from "jspdf";
 
 
 function Studies() {
@@ -142,6 +143,87 @@ function Studies() {
 
     const isLoading = Object.values(loading).some((status) => status);
 
+const reportDownload = () => {
+    const doc = new jsPDF();
+
+    // Get the current date
+    const currentDate = new Date();
+    const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}-${String(
+        currentDate.getDate()
+    ).padStart(2, "0")}`;
+    const fileName = `${formattedDate} MBRL Report`;
+
+    // Set up custom font
+    doc.setFont("EB Garamond"); // Ensure the font is added correctly; use "setFont" for the custom font
+
+    // Adjust margins
+    const margin = 20; // 20mm margins on all sides
+    let yPosition = margin; // Starting y position
+
+    // Add Title
+    doc.setFontSize(20);
+    doc.text(`${fileName}`, margin, yPosition);
+    yPosition += 15;
+
+    // Add Frontend Data Points
+    // Aggregate Hours
+    doc.text(`Aggregate Hours:`, margin, yPosition);
+    yPosition += 10;
+
+    if (pastProgress.length > 0) {
+        doc.text(
+            `MKT Hours: ${pastProgress[pastProgress.length - 1].aggregate_mkt_hours.toFixed(2)}`,
+            margin,
+            yPosition
+        );
+        yPosition += 10;
+
+        doc.text(
+            `MOR Hours: ${pastProgress[pastProgress.length - 1].aggregate_mor_hours.toFixed(2)}`,
+            margin,
+            yPosition
+        );
+        yPosition += 10;
+
+        doc.text(
+            `COMP Hours: ${pastProgress[pastProgress.length - 1].aggregate_comp_hours.toFixed(2)}`,
+            margin,
+            yPosition
+        );
+        yPosition += 15;
+    }
+
+    // Research Output Section
+    doc.text("Research Output:", margin, yPosition);
+    yPosition += 10;
+    doc.text("214 Papers (in the past ten years)", margin, yPosition);
+    yPosition += 20;
+
+    // Studies Section
+    if (currentStudies[selectedPool]?.length > 0) {
+        doc.text(`Current ${selectedPool.toUpperCase()} Studies:`, margin, yPosition);
+        yPosition += 10;
+
+        currentStudies[selectedPool].forEach((study) => {
+            doc.text(
+                `Study Name: ${study.study_name}, Location: ${study.location}, Duration: ${study.duration} minutes, Participants: ${study.participated_amount}`,
+                margin,
+                yPosition,
+                { maxWidth: doc.internal.pageSize.width - 2 * margin }
+            );
+            yPosition += 10;
+
+            // Check for page overflow
+            if (yPosition > doc.internal.pageSize.height - margin) {
+                doc.addPage();
+                yPosition = margin;
+            }
+        });
+    }
+
+    // Save the PDF
+    doc.save(`${fileName}.pdf`);
+};
 
     if (isLoading) {
         return (
@@ -166,11 +248,12 @@ function Studies() {
                         <div>SPRING 2025</div>
                         <div>(click to switch timeframe)</div>
                     </div>
+
                     <div
                         className="header-card"
                         onClick={() => window.location.reload()}
                     >
-                        <div>Last updated: </div>
+                        <div>Last updated:</div>
                         <div>{new Date().toLocaleString()}</div>
                     </div>
 
@@ -183,7 +266,7 @@ function Studies() {
                     style={{cursor: "pointer"}} // Indicates that the card is clickable
                 >
                     {displayMode === "chart" ? (
-                        <div className = "chart-container">
+                        <div className="chart-container">
                             <StackedGraph/>
                         </div>
                     ) : (
@@ -215,7 +298,11 @@ function Studies() {
 
 
                 {/* Overview Card */}
-                <div className="overview-card">
+                <div
+                    className="overview-card"
+                    onClick={reportDownload}
+                    style={{cursor: "pointer"}} // Change the cursor to indicate it's clickable
+                >
                     {/* Aggregate Hours with Increase */}
                     <div className="overview-item">
                         <h1>
@@ -262,8 +349,8 @@ function Studies() {
                     </div>
                 </div>
 
-
             </div>
+
             {/* Second Column */}
             <div className="second-column">
 
